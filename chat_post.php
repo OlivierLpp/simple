@@ -26,6 +26,17 @@ catch(Exception $e)
         die('Erreur : '.$e->getMessage());
 }
 
+$nom = htmlspecialchars($_POST['nom']);
+$message= htmlspecialchars($_POST['message']);
+
+$_SESSION['nom']= $nom ;
+
+
+$req = $bdd->prepare('INSERT INTO commentaires (auteur, commentaire,date_commentaire) VALUES(?, ?, NOW())');
+$req->execute(array($nom ,$message));
+   
+
+header('Location: chat.php');
 ?>
  	 </body>
 </html>
